@@ -26,7 +26,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
+});
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -741,9 +743,7 @@ const connectToDatabase = async () => {
     await sequelize.sync();
     console.log('Подключение к БД успешно');
     const userrole = dbManager.changeRoleUser(1, 3)
-    app.listen(PORT, () => {
-      console.log(`Сервер запущен на порту ${PORT}`);
-    });
+    
 
   } catch (e) {
     console.log('Подключение к БД сломалось', e);
@@ -771,7 +771,7 @@ const startBot = async () => {
   //   .catch((error) => {
   //     console.error('Ошибка при пересоздании таблицы:', error);
   //   });
-
+  
   bot.on(/\/site123/, async(msg)=>{
     const chatId = msg.from.id;
     await bot.sendMessage(chatId, 'asdasdasd', {
